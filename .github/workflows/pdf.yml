@@ -1,4 +1,4 @@
-name: Build Resume PDFs
+name: Build Resume PDF
 
 on:
   push:
@@ -11,54 +11,70 @@ permissions:
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
-    container: ghcr.io/puppeteer/puppeteer:latest  # Chromium внутри контейнера
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Install Chromium dependencies (Ubuntu 24.04+ safe)
+        shell: bash
+        run: |
+          sudo apt-get update
+          # Выбираем libasound2t64 если он есть (Ubuntu 24.04), иначе libasound2
+          if apt-cache show libasound2t64 >/dev/null 2>&1; then
+            ASOUND=libasound2t64
+          else
+            ASOUND=libasound2
+          fi
+          sudo apt-get install -y \
+            fonts-liberation \
+            "$ASOUND" \
+            libatk-bridge2.0-0 \
+            libatk1.0-0 \
+            libcairo2 \
+            libdrm2 \
+            libgbm1 \
+            libgtk-3-0 \
+            libnspr4 \
+            libnss3 \
+            libpangocairo-1.0-0 \
+            libpango-1.0-0 \
+            libx11-6 \
+            libx11-xcb1 \
+            libxcb1 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxext6 \
+            libxfixes3 \
+            libxkbcommon0 \
+            libxrandr2 \
+            xdg-utils
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
       - name: Install md-to-pdf
         run: npm i -g md-to-pdf
 
       - name: Build EN PDF
         run: |
-          test -f resume-en.md || { echo "resume-en.md not found"; exit 1; }
           md-to-pdf resume-en.md \
             --stylesheet resume.css \
-            --pdf-options '{"format":"A4","margin":"18mm"}' \
-            --launch-options '{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
-          mv resume-en.pdf resume-en.pdf
+            --launch-options '{"args": ["--no-sandbox","--disable-setuid-sandbox"]}' \
+            --pdf-options '{"format":"A4","margin":"18mm"}'
+          mv resume-en.pdf resume.pdf
+          ls -la
 
-      - name: Build RU PDF (if exists)
-        run: |
-          if [ -f resume-ru.md ]; then
-            md-to-pdf resume-ru.md \
-              --stylesheet resume.css \
-              --pdf-options '{"format":"A4","margin":"18mm"}' \
-              --launch-options '{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
-            mv resume-ru.pdf resume-ru.pdf
-          else
-            echo "resume-ru.md not found, skipping RU PDF"
-          fi
-
-      # Дополнительно: сохранить совместимость со старой ссылкой /resume.pdf (копия EN)
-      - name: Copy resume-en.pdf to resume.pdf (compat)
-        run: cp -f resume-en.pdf resume.pdf
-
-      - name: Upload PDFs as artifact (fallback)
+      - name: Upload PDF as artifact (fallback)
         uses: actions/upload-artifact@v4
         with:
-          name: resumes
-          path: |
-            resume-en.pdf
-            resume-ru.pdf
-            resume.pdf
+          name: resume-pdf
+          path: resume.pdf
 
-      - name: Commit PDFs back to repo
+      - name: Commit PDF back to repo
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add resume-en.pdf || true
-          git add resume-ru.pdf || true
           git add resume.pdf || true
-          git commit -m "chore: update resume PDFs" || echo "No changes"
+          git commit -m "chore: update resume PDF" || echo "No changes"
           git push || echo "Push skipped (branch protection?)"
