@@ -6,7 +6,7 @@ Java FullStack разработчик
 **Telegram:** @godoffirekirill13  
 **Email:** your-email@example.com
 
----
+----
 
 ## О себе
 Full-stack разработчик: фронтенд на React/TypeScript, бэкенд на Node.js. Умею деплоить на VDS (VPS), поднимать БД (MongoDB/SQL), связывать backend с БД и выпускать продакшен-сборки. Сейчас углубляюсь в Java OOP/структуры данных и облака AWS.
