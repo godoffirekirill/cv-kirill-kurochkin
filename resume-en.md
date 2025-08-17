@@ -6,7 +6,7 @@ Java FullStack Developer
 **Telegram:** @godoffirekirill13  
 **Email:** your-email@example.com
 
----
+----
 
 ## Summary
 Full-stack developer focused on building adaptive, multilingual web apps. Strong with React/TypeScript on the frontend and Node.js on the backend. Confident deploying to VDS (VPS), provisioning databases (MongoDB / SQL), wiring backends to DBs, and shipping production builds. Currently advancing Java OOP/Data Structures and AWS cloud.
