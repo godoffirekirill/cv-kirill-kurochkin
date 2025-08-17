@@ -3,8 +3,8 @@ Java FullStack Developer
 
 **Location:** Herzliya, Israel  
 **GitHub:** https://github.com/godoffirekirill  
-**Telegram:** @godoffirekirill13  
-**Email:** your-email@example.com
+**Telegram:** [@godoffirekirill13](https://t.me/godoffirekirill13)  
+**Email:** k.kurochkin@gmail.com
 
 -----
 
