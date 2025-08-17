@@ -6,7 +6,7 @@ Java FullStack разработчик
 **Telegram:** [@godoffirekirill13](https://t.me/godoffirekirill13)  
 **Email:** k.kurochkin1111@gmail.com
 
----
+----
 
 ## О себе
 Full-stack разработчик: фронтенд на React/TypeScript, бэкенд на Node.js. Умею деплоить на VDS (VPS), поднимать БД (MongoDB/SQL), связывать backend с БД и выпускать продакшен-сборки. Сейчас углубляюсь в Java OOP/структуры данных и облака AWS.
