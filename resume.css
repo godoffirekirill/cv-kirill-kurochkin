@@ -1,0 +1,22 @@
+/* Базовый читаемый стиль для печати */
+@page { size: A4; margin: 18mm; }
+* { box-sizing: border-box; }
+body { font-family: "DejaVu Sans", Arial, sans-serif; color: #1f2937; }
+h1, h2, h3 { margin: 0 0 8px; }
+h1 { font-size: 26px; }
+h2 { font-size: 18px; color: #0f172a; margin-top: 18px; }
+p, li { font-size: 12.5px; line-height: 1.5; }
+a { color: #2563eb; text-decoration: none; }
+ul { padding-left: 18px; margin: 8px 0; }
+hr { border: none; border-top: 1px solid #e5e7eb; margin: 12px 0; }
+
+/* Заголовок */
+.header { display: flex; align-items: center; gap: 12px; }
+.header .title { font-size: 22px; font-weight: 700; }
+
+/* Компактные списки */
+.compact li { margin: 2px 0; }
+
+/* Разделители */
+.section { margin-top: 14px; }
+
