@@ -1,7 +1,7 @@
 # Kirill Kurochkin — Resume / CV
 
 <div align="center">
-  <img src="./assets/photo.jpg" alt="Kirill Kurochkin" width="140" style="border-radius:50%;" />
+  <img src="https://github.com/godoffirekirill/cv-kirill-kurochkin/blob/main/assets/photo.jpeg" alt="Kirill Kurochkin" width="140" style="border-radius:50%;" />
 </div>
 
 **Location:** Herzliya, Israel
