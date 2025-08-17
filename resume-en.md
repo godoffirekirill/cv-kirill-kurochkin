@@ -16,7 +16,7 @@ Full-stack developer focused on building adaptive, multilingual web apps. Strong
 ## Education
 **Full Stack Development (in progress), Tel-Ran Educational Center — 2025 — Herzliya, Israel**  
 - Current module: **Java OOD/OOP & Data Structures, AWS Clouding — 164 hours**  
-- Completed tracks: **Programming Language Fundamentals (Python & Java) — 88h**, **Frontend JavaScript & React — 168h**, **Backend Node.js — 84h**.  
+- Completed tracks: **Programming Language Fundamentals (C & Java) — 88h**, **Frontend JavaScript & React — 168h**, **Backend Node.js — 84h**.  
 - Program total: **~604 hours**, including **~100 hours of real project development**.  
 - Highlights: JUnit TDD; Collections & Streams; Multithreading & synchronization; Exceptions; UML; I/O & sockets; AWS IAM & Serverless (Lambda); Microservices; Docker/Fargate.
 
