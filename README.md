@@ -12,6 +12,6 @@
 
 **Contacts:**  
 GitHub: https://github.com/godoffirekirill  
-Telegram: https://t.me/godoffirekirill13  
-Email: your-email@example.com
+Telegram: https://t.me/godoffirekirill13
+Email: k.kurochkin@gmail.com
 
