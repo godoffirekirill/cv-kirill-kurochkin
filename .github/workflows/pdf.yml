@@ -2,33 +2,80 @@ name: Build Resume PDF
 
 on:
   push:
-    paths:
-      - resume-en.md
-      - resume.css
-      - .github/workflows/pdf.yml
-  workflow_dispatch:
+    branches: [ main ]        # запускаем при любом пуше в main
+  workflow_dispatch:          # и вручную по кнопке
 
 permissions:
-  contents: write
+  contents: write             # нужно, чтобы запушить PDF обратно
 
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Chromium dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            fonts-liberation \
+            libasound2 \
+            libatk-bridge2.0-0 \
+            libatk1.0-0 \
+            libc6 \
+            libcairo2 \
+            libdrm2 \
+            libgbm1 \
+            libgtk-3-0 \
+            libnspr4 \
+            libnss3 \
+            libpangocairo-1.0-0 \
+            libpango-1.0-0 \
+            libx11-6 \
+            libx11-xcb1 \
+            libxcb1 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxext6 \
+            libxfixes3 \
+            libxkbcommon0 \
+            libxrandr2 \
+            xdg-utils
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm i -g md-to-pdf
+
+      - name: Install md-to-pdf
+        run: npm i -g md-to-pdf
+
       - name: Build EN PDF
         run: |
-          md-to-pdf resume-en.md --stylesheet resume.css --pdf-options '{"format":"A4","margin":"18mm"}'
+          if [ ! -f "resume-en.md" ]; then
+            echo "resume-en.md not found"; exit 1;
+          fi
+
+          # если нет resume.css — убери --stylesheet resume.css
+          md-to-pdf resume-en.md \
+            --stylesheet resume.css \
+            --launch-options '{"args": ["--no-sandbox","--disable-setuid-sandbox"]}' \
+            --pdf-options '{"format":"A4","margin":"18mm"}'
+
           mv resume-en.pdf resume.pdf
-      - name: Commit PDFs
+          ls -la
+
+      - name: Upload PDF as artifact (fallback)
+        uses: actions/upload-artifact@v4
+        with:
+          name: resume-pdf
+          path: resume.pdf
+
+      - name: Commit PDF back to repo
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add resume.pdf || true
           git commit -m "chore: update resume PDF" || echo "No changes"
-          git push
-
+          git push || echo "Push skipped (branch protection?)"
